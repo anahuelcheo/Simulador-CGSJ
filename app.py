@@ -110,18 +110,39 @@ st.markdown("""
         display: inline-block !important;
     }
 
-    /* 2. Forzar que el contenedor principal siempre se alinee a la izquierda y ocupe el ancho completo */
+    /* 1. Resetear el contenedor principal de la aplicación */
+    .stApp {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 2. Forzar a section.main a ocupar todo el espacio disponible pegado a la izquierda */
+    section.main, .main {
+        width: 100% !important;
+        flex-grow: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Asegurar que el bloque de contenido interno use el ancho completo sin márgenes automáticos de centrado */
     .main .block-container,
     .block-container {
         max-width: 98% !important;
-        margin-left: 0 !important;
-        margin-right: auto !important;
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-        padding-top: 1rem !important;
+        width: 98% !important;
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 1.5rem !important;
     }
 
-    /* 3. Ocultar badges y elementos de Streamlit inferiores (manteniendo funcional el botón de filtros) */
+    /* 4. Cuando el sidebar está colapsado, asegurarse de que no quede margen reservado a la izquierda */
+    [data-testid="stSidebar"][aria-expanded="false"] {
+        margin-left: -22rem !important;
+    }
+
+    /* 5. Ocultar badges y elementos de Streamlit inferiores (manteniendo funcional el botón de filtros) */
     footer,
     div[class*="viewerBadge"],
     div[class*="Profile"],
