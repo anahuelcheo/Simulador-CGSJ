@@ -255,14 +255,14 @@ st.markdown("""
     }
     .kpi-container {
         border-radius: 10px !important;
-        padding: 0.6rem 0.9rem !important;
+        padding: 0.55rem 0.75rem !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         height: 100%;
         min-width: 0;
         display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
         align-items: center !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .kpi-container:hover {
@@ -310,17 +310,18 @@ st.markdown("""
         line-height: 1.2;
     }
     .kpi-value {
-        font-size: clamp(1.20rem, 1.48vw, 1.72rem) !important;
+        font-size: clamp(1rem, 1.35vw, 1.6rem) !important;
+        white-space: nowrap !important;
         font-weight: 700;
         color: #f8fafc !important;
         line-height: 1.15;
         margin: 0.12rem 0 !important;
-        white-space: nowrap;
     }
     .kpi-value span {
-        font-size: clamp(0.75rem, 0.85vw, 0.90rem) !important;
+        font-size: clamp(0.70rem, 0.85vw, 0.90rem) !important;
         font-weight: 400;
         color: #94a3b8 !important;
+        white-space: nowrap !important;
     }
     .kpi-subtext, .kpi-subtext span, .kpi-subtext b {
         font-size: clamp(0.68rem, 0.74vw, 0.80rem) !important;
@@ -332,14 +333,23 @@ st.markdown("""
         color: #f8fafc !important;
     }
     .kpi-icon-right {
-        font-size: 2.5rem !important;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 0.65rem;
-        flex-shrink: 0;
-        user-select: none;
+        width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        flex-shrink: 0 !important;
+        font-size: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        user-select: none !important;
+        margin: 0 !important;
+    }
+    .kpi-icon-right svg {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        max-height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        flex-shrink: 0 !important;
     }
     .kpi-badge {
         display: inline-block;
@@ -472,9 +482,13 @@ st.markdown("""
     /* 9. Media Queries para pantallas medianas (Notebooks <= 1400px) */
     @media (max-width: 1400px) {
         .stMetric label, .kpi-label, .kpi-title { font-size: 0.74rem !important; }
-        .kpi-value { font-size: 1.25rem !important; }
+        .kpi-value { font-size: clamp(1rem, 1.35vw, 1.6rem) !important; white-space: nowrap !important; }
         .kpi-subtext, .kpi-subtext span, .kpi-subtext b { font-size: 0.70rem !important; }
-        .kpi-icon-right { font-size: 1.8rem !important; }
+        .kpi-icon-right {
+            width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+            height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+            font-size: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        }
         .econ-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         section[data-testid="stSidebar"],
         [data-testid="stSidebarContent"] { width: 300px !important; min-width: 300px !important; }
@@ -978,7 +992,7 @@ st.markdown(f"""
             <div class="kpi-value">{fmt_num(petroleo_acum_m3, 0)} <span>m³</span></div>
             <div class="kpi-subtext">Acumulado ({fmt_num(petroleo_acum_m3/1e6, 2)} Mm³)</div>
         </div>
-        <div class="kpi-icon-right" style="font-size: 2.5rem; opacity: 0.8;">🛢️</div>
+        <div class="kpi-icon-right" style="opacity: 0.8;">🛢️</div>
     </div>
     <div class="kpi-container kpi-card-agua">
         <div class="kpi-content-left">
@@ -986,7 +1000,7 @@ st.markdown(f"""
             <div class="kpi-value">{fmt_num(agua_acum_m3, 0)} <span>m³</span></div>
             <div class="kpi-subtext">WOR: <b>{fmt_num(wor_medio_ponderado, 2)}</b> | BSW: <b>{fmt_num(corte_agua_ponderado, 1)}%</b></div>
         </div>
-        <div class="kpi-icon-right" style="font-size: 2.5rem; opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
+        <div class="kpi-icon-right" style="opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
     </div>
     <div class="kpi-container kpi-card-demanda">
         <div class="kpi-content-left">
@@ -994,7 +1008,7 @@ st.markdown(f"""
             <div class="kpi-value">{fmt_num(demanda_extraccion_mwh, 0)} <span>MWh</span></div>
             <div class="kpi-subtext">Pot. media: <b>{fmt_num(potencia_media_demanda_mw, 1)} MW</b> ({fmt_num(consumo_esp_extraccion, 1)} kWh/m³)</div>
         </div>
-        <div class="kpi-icon-right" style="font-size: 2.5rem; opacity: 0.9;">⚡</div>
+        <div class="kpi-icon-right" style="opacity: 0.9;">⚡</div>
     </div>
     <div class="kpi-container kpi-card-eolica">
         <div class="kpi-content-left">
@@ -1003,7 +1017,7 @@ st.markdown(f"""
             <div class="kpi-subtext">{sub_cobertura}</div>
         </div>
         <div class="kpi-icon-right" style="opacity: 0.9;">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 12v9"/>
                 <path d="m14 12 5-8.5a1 1 0 0 0-1.7-1L12 7"/>
                 <path d="M12 12 3.5 14a1 1 0 0 0-1 1.7L7 18"/>
@@ -1021,7 +1035,7 @@ st.markdown(f"""
                 <span>🚗 ~<b>{fmt_num(autos_equivalentes, 0)}</b> autos evitados/año.</span>
             </div>
         </div>
-        <div class="kpi-icon-right" style="font-size: 2.5rem; opacity: 0.9;">🌱</div>
+        <div class="kpi-icon-right" style="opacity: 0.9;">🌱</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
