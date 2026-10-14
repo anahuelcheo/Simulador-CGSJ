@@ -110,12 +110,17 @@ st.markdown("""
         display: inline-block !important;
     }
 
-    /* 3. Ocultar el pie de página de Streamlit */
-    footer {
-        display: none !important;
+    /* 1. Maximizar el ancho útil de la pantalla (evita franjas negras vacías a los costados en notebooks) */
+    .main .block-container,
+    .block-container {
+        max-width: 96% !important;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+        padding-top: 1rem !important;
     }
 
-    /* 4. Ocultar la insignia flotante inferior derecha (el avatar de usuario y la coronita de Streamlit) */
+    /* 3. Ocultar badges y elementos de Streamlit inferiores (manteniendo funcional el botón de filtros) */
+    footer,
     div[class*="viewerBadge"],
     div[class*="Profile"],
     div[class*="manage-app"],
@@ -123,13 +128,6 @@ st.markdown("""
     .viewerBadge_container__r5tak,
     [data-testid="stDecoration"] {
         display: none !important;
-    }
-    .block-container {
-        max-width: 98% !important;
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-        padding-top: 3.2rem !important;
-        padding-bottom: 1rem !important;
     }
     [data-testid="stSidebarContent"] {
         padding-top: 1.2rem !important;
@@ -309,7 +307,15 @@ st.markdown("""
         white-space: normal !important;
         line-height: 1.2;
     }
-    .kpi-value {
+    /* 2. Responsive de tarjetas KPI: evitar que números largos choquen con los íconos */
+    .kpi-card, div[data-testid="stMetric"], div[data-testid="column"] > div {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    /* Tipografía e íconos elásticos para que entren completos en cualquier resolución */
+    .kpi-value, [data-testid="stMetricValue"] {
         font-size: clamp(1rem, 1.35vw, 1.6rem) !important;
         white-space: nowrap !important;
         font-weight: 700;
@@ -332,7 +338,8 @@ st.markdown("""
     .kpi-subtext b {
         color: #f8fafc !important;
     }
-    .kpi-icon-right {
+
+    .kpi-icon, .kpi-icon-right {
         width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
         height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
         flex-shrink: 0 !important;
@@ -344,7 +351,7 @@ st.markdown("""
         user-select: none !important;
         margin: 0 !important;
     }
-    .kpi-icon-right svg {
+    .kpi-icon svg, .kpi-icon-right svg {
         width: 100% !important;
         height: 100% !important;
         max-width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
@@ -986,37 +993,37 @@ autos_equivalentes = int(emisiones_evitadas_tco2 / 4.6)
 
 st.markdown(f"""
 <div class="kpi-grid">
-    <div class="kpi-container kpi-card-petroleo">
+    <div class="kpi-container kpi-card kpi-card-petroleo">
         <div class="kpi-content-left">
             <div class="kpi-title kpi-label">Petróleo Producido</div>
             <div class="kpi-value">{fmt_num(petroleo_acum_m3, 0)} <span>m³</span></div>
             <div class="kpi-subtext">Acumulado ({fmt_num(petroleo_acum_m3/1e6, 2)} Mm³)</div>
         </div>
-        <div class="kpi-icon-right" style="opacity: 0.8;">🛢️</div>
+        <div class="kpi-icon-right kpi-icon" style="opacity: 0.8;">🛢️</div>
     </div>
-    <div class="kpi-container kpi-card-agua">
+    <div class="kpi-container kpi-card kpi-card-agua">
         <div class="kpi-content-left">
             <div class="kpi-title kpi-label">Agua Bruta / WOR</div>
             <div class="kpi-value">{fmt_num(agua_acum_m3, 0)} <span>m³</span></div>
             <div class="kpi-subtext">WOR: <b>{fmt_num(wor_medio_ponderado, 2)}</b> | BSW: <b>{fmt_num(corte_agua_ponderado, 1)}%</b></div>
         </div>
-        <div class="kpi-icon-right" style="opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
+        <div class="kpi-icon-right kpi-icon" style="opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
     </div>
-    <div class="kpi-container kpi-card-demanda">
+    <div class="kpi-container kpi-card kpi-card-demanda">
         <div class="kpi-content-left">
             <div class="kpi-title kpi-label">Demanda de Extracción</div>
             <div class="kpi-value">{fmt_num(demanda_extraccion_mwh, 0)} <span>MWh</span></div>
             <div class="kpi-subtext">Pot. media: <b>{fmt_num(potencia_media_demanda_mw, 1)} MW</b> ({fmt_num(consumo_esp_extraccion, 1)} kWh/m³)</div>
         </div>
-        <div class="kpi-icon-right" style="opacity: 0.9;">⚡</div>
+        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">⚡</div>
     </div>
-    <div class="kpi-container kpi-card-eolica">
+    <div class="kpi-container kpi-card kpi-card-eolica">
         <div class="kpi-content-left">
             <div class="kpi-title kpi-label">Generación Eólica</div>
             <div class="kpi-value">{fmt_num(gen_eolica_total_mwh, 0)} <span>MWh</span></div>
             <div class="kpi-subtext">{sub_cobertura}</div>
         </div>
-        <div class="kpi-icon-right" style="opacity: 0.9;">
+        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">
             <svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 12v9"/>
                 <path d="m14 12 5-8.5a1 1 0 0 0-1.7-1L12 7"/>
@@ -1026,7 +1033,7 @@ st.markdown(f"""
             </svg>
         </div>
     </div>
-    <div class="kpi-container kpi-card-co2">
+    <div class="kpi-container kpi-card kpi-card-co2">
         <div class="kpi-content-left">
             <div class="kpi-title kpi-label">CO₂ Evitado / Beneficio</div>
             <div class="kpi-value">{fmt_num(emisiones_evitadas_tco2, 0)} <span>tCO₂</span></div>
@@ -1035,7 +1042,7 @@ st.markdown(f"""
                 <span>🚗 ~<b>{fmt_num(autos_equivalentes, 0)}</b> autos evitados/año.</span>
             </div>
         </div>
-        <div class="kpi-icon-right" style="opacity: 0.9;">🌱</div>
+        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">🌱</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
