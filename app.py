@@ -31,14 +31,21 @@ st.markdown("""
         background-color: #111827 !important;
     }
 
-    /* 1. Ocultar únicamente el menú de 3 puntos, botón Deploy/Share y acciones de GitHub */
+    /* 1. Ocultar el gatito de GitHub, el botón Fork y los tres puntos de la esquina superior derecha */
+    [data-testid="stToolbar"],
     #MainMenu, 
     [data-testid="stMainMenu"],
     [data-testid="stAppDeployButton"], 
     .stAppDeployButton,
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stDecoration"] {
+    [data-testid="stHeaderActionElements"] {
         display: none !important;
+    }
+
+    /* 2. Garantizar que el botón de colapsar y expandir los filtros se mantenga 100% visible */
+    [data-testid="stSidebarCollapseButton"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     /* Header transparente e invisible que preserva el botón de reapertura de la barra lateral */
@@ -67,6 +74,21 @@ st.markdown("""
         background-color: rgba(56, 189, 248, 0.25) !important;
         border-color: #7dd3fc !important;
         color: #ffffff !important;
+    }
+
+    /* 3. Ocultar el pie de página de Streamlit */
+    footer {
+        display: none !important;
+    }
+
+    /* 4. Ocultar la insignia flotante inferior derecha (el avatar de usuario y la coronita de Streamlit) */
+    div[class*="viewerBadge"],
+    div[class*="Profile"],
+    div[class*="manage-app"],
+    div[class*="floating-buttons"],
+    .viewerBadge_container__r5tak,
+    [data-testid="stDecoration"] {
+        display: none !important;
     }
     .block-container {
         max-width: 98% !important;
