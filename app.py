@@ -31,12 +31,42 @@ st.markdown("""
         background-color: #111827 !important;
     }
 
-    /* 1. Ocultar barra superior nativa de Streamlit (menú de 3 puntos, share y GitHub) */
-    header[data-testid="stHeader"] {
-        display: none !important;
-    }
+    /* 1. Ocultar únicamente el menú de 3 puntos, botón Deploy/Share y acciones de GitHub */
+    #MainMenu, 
+    [data-testid="stMainMenu"],
+    [data-testid="stAppDeployButton"], 
+    .stAppDeployButton,
+    [data-testid="stHeaderActionElements"],
     [data-testid="stDecoration"] {
         display: none !important;
+    }
+
+    /* Header transparente e invisible que preserva el botón de reapertura de la barra lateral */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        height: 2.2rem !important;
+        z-index: 100 !important;
+    }
+
+    /* Botón chevron (>) para reabrir la barra lateral: siempre visible, destacado y cliqueable */
+    [data-testid="stSidebarCollapsedControl"] {
+        display: block !important;
+        visibility: visible !important;
+        z-index: 999999 !important;
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] button {
+        color: #38bdf8 !important;
+        background-color: rgba(15, 23, 42, 0.90) !important;
+        border: 1.5px solid #38bdf8 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] button:hover {
+        background-color: rgba(56, 189, 248, 0.25) !important;
+        border-color: #7dd3fc !important;
+        color: #ffffff !important;
     }
     .block-container {
         max-width: 98% !important;
