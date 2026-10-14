@@ -31,49 +31,83 @@ st.markdown("""
         background-color: #111827 !important;
     }
 
-    /* 1. Ocultar el gatito de GitHub, el botón Fork y los tres puntos de la esquina superior derecha */
-    [data-testid="stToolbar"],
+    /* 1. Ocultar el gatito de GitHub, botón Fork/Deploy y menú de tres puntos (manteniendo la barra de herramientas activa) */
     #MainMenu, 
     [data-testid="stMainMenu"],
     [data-testid="stAppDeployButton"], 
     .stAppDeployButton,
-    [data-testid="stHeaderActionElements"] {
+    [data-testid="stHeaderActionElements"],
+    [data-testid="stToolbarActions"],
+    div[class*="e1yxiy6j6"],
+    [data-testid="stToolbar"] a,
+    [data-testid="stToolbar"] button:not([data-testid="stExpandSidebarButton"]) {
         display: none !important;
     }
 
-    /* 2. Garantizar que el botón de colapsar y expandir los filtros se mantenga 100% visible */
+    /* Header y toolbar transparentes que no bloquean clics en la app */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        pointer-events: none !important;
+        z-index: 99999 !important;
+    }
+    [data-testid="stToolbar"] {
+        background: transparent !important;
+        pointer-events: none !important;
+    }
+
+    /* 2. Botón para colapsar filtros (cuando la barra lateral está abierta) */
     [data-testid="stSidebarCollapseButton"] {
         display: inline-flex !important;
         visibility: visible !important;
         opacity: 1 !important;
-    }
-
-    /* Header transparente e invisible que preserva el botón de reapertura de la barra lateral */
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-        height: 2.2rem !important;
-        z-index: 100 !important;
-    }
-
-    /* Botón chevron (>) para reabrir la barra lateral: siempre visible, destacado y cliqueable */
-    [data-testid="stSidebarCollapsedControl"] {
-        display: block !important;
-        visibility: visible !important;
-        z-index: 999999 !important;
-        top: 0.5rem !important;
-        left: 0.5rem !important;
-    }
-    [data-testid="stSidebarCollapsedControl"] button {
         color: #38bdf8 !important;
-        background-color: rgba(15, 23, 42, 0.90) !important;
+    }
+    [data-testid="stSidebarCollapseButton"] svg {
+        fill: #38bdf8 !important;
+        stroke: #38bdf8 !important;
+    }
+
+    /* 3. Botón para expandir y traer de vuelta los filtros (cuando la barra lateral está oculta) */
+    [data-testid="stExpandSidebarButton"],
+    [data-testid="stSidebarCollapsedControl"],
+    [data-testid="collapsedControl"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        position: fixed !important;
+        top: 0.65rem !important;
+        left: 0.65rem !important;
+        z-index: 9999999 !important;
+        background-color: #0f172a !important;
         border: 1.5px solid #38bdf8 !important;
         border-radius: 8px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        color: #38bdf8 !important;
+        width: 2.3rem !important;
+        height: 2.3rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+        transition: all 0.2s ease-in-out !important;
     }
-    [data-testid="stSidebarCollapsedControl"] button:hover {
-        background-color: rgba(56, 189, 248, 0.25) !important;
+    [data-testid="stExpandSidebarButton"]:hover,
+    [data-testid="stSidebarCollapsedControl"]:hover,
+    [data-testid="collapsedControl"]:hover {
+        background-color: #1e293b !important;
         border-color: #7dd3fc !important;
-        color: #ffffff !important;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.6) !important;
+        transform: scale(1.05) !important;
+    }
+    [data-testid="stExpandSidebarButton"] svg,
+    [data-testid="stExpandSidebarButton"] span,
+    [data-testid="stSidebarCollapsedControl"] svg,
+    [data-testid="collapsedControl"] svg {
+        fill: #38bdf8 !important;
+        stroke: #38bdf8 !important;
+        color: #38bdf8 !important;
+        visibility: visible !important;
+        display: inline-block !important;
     }
 
     /* 3. Ocultar el pie de página de Streamlit */
