@@ -395,6 +395,36 @@ st.markdown("""
         .stPydeckChart, div[data-testid="stDeckGlJsonChart"] { height: 480px !important; min-height: 480px !important; }
     }
 
+    /* 9.1. Media Query Responsive para Celulares y Pantallas Móviles (<= 768px) */
+    @media (max-width: 768px) {
+        /* Permitir que los contenedores flexibles hagan salto de línea en celular */
+        div[data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+        }
+        
+        /* Si las tarjetas están en columnas de Streamlit o divs con clase específica */
+        div[data-testid="column"] {
+            min-width: 100% !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        /* En caso de que uses un contenedor CSS Grid personalizado para las tarjetas */
+        .kpi-grid, .econ-bar, .kpi-container, .metric-grid, .cards-container {
+            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .kpi-container {
+            margin-bottom: 0.5rem !important;
+            padding: 0.75rem 1rem !important;
+        }
+        .econ-item {
+            margin-bottom: 0.35rem !important;
+            padding: 0.5rem 0.75rem !important;
+        }
+    }
+
     /* 10. Orientación y contención del Tooltip nativo de Pydeck */
     .deck-tooltip {
         max-height: 380px !important;
