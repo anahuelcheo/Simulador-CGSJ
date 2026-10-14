@@ -31,11 +31,9 @@ st.markdown("""
         background-color: #111827 !important;
     }
 
-    /* 1. Header nativo transparente y padding superior ajustado para evitar corte de título */
+    /* 1. Ocultar barra superior nativa de Streamlit (menú de 3 puntos, share y GitHub) */
     header[data-testid="stHeader"] {
-        background: transparent !important;
-        height: 2rem !important;
-        z-index: 1 !important;
+        display: none !important;
     }
     [data-testid="stDecoration"] {
         display: none !important;
