@@ -110,10 +110,12 @@ st.markdown("""
         display: inline-block !important;
     }
 
-    /* 1. Maximizar el ancho útil de la pantalla (evita franjas negras vacías a los costados en notebooks) */
+    /* 2. Forzar que el contenedor principal siempre se alinee a la izquierda y ocupe el ancho completo */
     .main .block-container,
     .block-container {
-        max-width: 96% !important;
+        max-width: 98% !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
         padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
         padding-top: 1rem !important;
@@ -253,14 +255,14 @@ st.markdown("""
     }
     .kpi-container {
         border-radius: 10px !important;
-        padding: 0.55rem 0.75rem !important;
+        padding: 0.6rem 0.85rem !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
         height: 100%;
         min-width: 0;
         display: flex !important;
-        align-items: center !important;
+        flex-direction: column !important;
         justify-content: space-between !important;
-        gap: 6px !important;
+        gap: 4px !important;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .kpi-container:hover {
@@ -290,13 +292,6 @@ st.markdown("""
         border: 1.5px solid #16a34a !important;
         box-shadow: 0 4px 14px -2px rgba(22, 163, 74, 0.28) !important;
     }
-    .kpi-content-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-width: 0;
-        flex: 1;
-    }
     .kpi-title, .kpi-label {
         font-size: clamp(0.70rem, 0.76vw, 0.82rem) !important;
         font-weight: 600;
@@ -307,17 +302,21 @@ st.markdown("""
         white-space: normal !important;
         line-height: 1.2;
     }
-    /* 2. Responsive de tarjetas KPI: evitar que números largos choquen con los íconos */
-    .kpi-card, div[data-testid="stMetric"], div[data-testid="column"] > div {
+
+    /* 1. Volver a colocar el ícono al costado derecho del valor (en la misma fila) sin que se pisen */
+    .kpi-row, div[data-testid="stMetric"] > div {
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
     }
 
-    /* Tipografía e íconos elásticos para que entren completos en cualquier resolución */
     .kpi-value, [data-testid="stMetricValue"] {
-        font-size: clamp(1rem, 1.35vw, 1.6rem) !important;
+        font-size: clamp(1.05rem, 1.25vw, 1.55rem) !important;
         white-space: nowrap !important;
+        flex-shrink: 1 !important;
         font-weight: 700;
         color: #f8fafc !important;
         line-height: 1.15;
@@ -340,22 +339,22 @@ st.markdown("""
     }
 
     .kpi-icon, .kpi-icon-right {
-        width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
-        height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
-        flex-shrink: 0 !important;
-        font-size: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        width: clamp(1.4rem, 1.6vw, 2rem) !important;
+        height: clamp(1.4rem, 1.6vw, 2rem) !important;
+        font-size: clamp(1.4rem, 1.6vw, 2rem) !important;
         line-height: 1 !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         user-select: none !important;
-        margin: 0 !important;
     }
     .kpi-icon svg, .kpi-icon-right svg {
         width: 100% !important;
         height: 100% !important;
-        max-width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
-        max-height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        max-width: clamp(1.4rem, 1.6vw, 2rem) !important;
+        max-height: clamp(1.4rem, 1.6vw, 2rem) !important;
         flex-shrink: 0 !important;
     }
     .kpi-badge {
@@ -489,12 +488,18 @@ st.markdown("""
     /* 9. Media Queries para pantallas medianas (Notebooks <= 1400px) */
     @media (max-width: 1400px) {
         .stMetric label, .kpi-label, .kpi-title { font-size: 0.74rem !important; }
-        .kpi-value { font-size: clamp(1rem, 1.35vw, 1.6rem) !important; white-space: nowrap !important; }
+        .kpi-value, [data-testid="stMetricValue"] {
+            font-size: clamp(1.05rem, 1.25vw, 1.55rem) !important;
+            white-space: nowrap !important;
+            flex-shrink: 1 !important;
+        }
         .kpi-subtext, .kpi-subtext span, .kpi-subtext b { font-size: 0.70rem !important; }
-        .kpi-icon-right {
-            width: clamp(1.4rem, 1.8vw, 2.2rem) !important;
-            height: clamp(1.4rem, 1.8vw, 2.2rem) !important;
-            font-size: clamp(1.4rem, 1.8vw, 2.2rem) !important;
+        .kpi-icon, .kpi-icon-right {
+            width: clamp(1.4rem, 1.6vw, 2rem) !important;
+            height: clamp(1.4rem, 1.6vw, 2rem) !important;
+            font-size: clamp(1.4rem, 1.6vw, 2rem) !important;
+            flex-shrink: 0 !important;
+            margin-left: auto !important;
         }
         .econ-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         section[data-testid="stSidebar"],
@@ -993,56 +998,56 @@ autos_equivalentes = int(emisiones_evitadas_tco2 / 4.6)
 
 st.markdown(f"""
 <div class="kpi-grid">
-    <div class="kpi-container kpi-card kpi-card-petroleo">
-        <div class="kpi-content-left">
-            <div class="kpi-title kpi-label">Petróleo Producido</div>
+    <div class="kpi-container kpi-card-petroleo">
+        <div class="kpi-title kpi-label">Petróleo Producido</div>
+        <div class="kpi-row">
             <div class="kpi-value">{fmt_num(petroleo_acum_m3, 0)} <span>m³</span></div>
-            <div class="kpi-subtext">Acumulado ({fmt_num(petroleo_acum_m3/1e6, 2)} Mm³)</div>
+            <div class="kpi-icon kpi-icon-right" style="opacity: 0.8;">🛢️</div>
         </div>
-        <div class="kpi-icon-right kpi-icon" style="opacity: 0.8;">🛢️</div>
+        <div class="kpi-subtext">Acumulado ({fmt_num(petroleo_acum_m3/1e6, 2)} Mm³)</div>
     </div>
-    <div class="kpi-container kpi-card kpi-card-agua">
-        <div class="kpi-content-left">
-            <div class="kpi-title kpi-label">Agua Bruta / WOR</div>
+    <div class="kpi-container kpi-card-agua">
+        <div class="kpi-title kpi-label">Agua Bruta / WOR</div>
+        <div class="kpi-row">
             <div class="kpi-value">{fmt_num(agua_acum_m3, 0)} <span>m³</span></div>
-            <div class="kpi-subtext">WOR: <b>{fmt_num(wor_medio_ponderado, 2)}</b> | BSW: <b>{fmt_num(corte_agua_ponderado, 1)}%</b></div>
+            <div class="kpi-icon kpi-icon-right" style="opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
         </div>
-        <div class="kpi-icon-right kpi-icon" style="opacity: 0.85; filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.45));">💧</div>
+        <div class="kpi-subtext">WOR: <b>{fmt_num(wor_medio_ponderado, 2)}</b> | BSW: <b>{fmt_num(corte_agua_ponderado, 1)}%</b></div>
     </div>
-    <div class="kpi-container kpi-card kpi-card-demanda">
-        <div class="kpi-content-left">
-            <div class="kpi-title kpi-label">Demanda de Extracción</div>
+    <div class="kpi-container kpi-card-demanda">
+        <div class="kpi-title kpi-label">Demanda de Extracción</div>
+        <div class="kpi-row">
             <div class="kpi-value">{fmt_num(demanda_extraccion_mwh, 0)} <span>MWh</span></div>
-            <div class="kpi-subtext">Pot. media: <b>{fmt_num(potencia_media_demanda_mw, 1)} MW</b> ({fmt_num(consumo_esp_extraccion, 1)} kWh/m³)</div>
+            <div class="kpi-icon kpi-icon-right" style="opacity: 0.9;">⚡</div>
         </div>
-        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">⚡</div>
+        <div class="kpi-subtext">Pot. media: <b>{fmt_num(potencia_media_demanda_mw, 1)} MW</b> ({fmt_num(consumo_esp_extraccion, 1)} kWh/m³)</div>
     </div>
-    <div class="kpi-container kpi-card kpi-card-eolica">
-        <div class="kpi-content-left">
-            <div class="kpi-title kpi-label">Generación Eólica</div>
+    <div class="kpi-container kpi-card-eolica">
+        <div class="kpi-title kpi-label">Generación Eólica</div>
+        <div class="kpi-row">
             <div class="kpi-value">{fmt_num(gen_eolica_total_mwh, 0)} <span>MWh</span></div>
-            <div class="kpi-subtext">{sub_cobertura}</div>
-        </div>
-        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 12v9"/>
-                <path d="m14 12 5-8.5a1 1 0 0 0-1.7-1L12 7"/>
-                <path d="M12 12 3.5 14a1 1 0 0 0-1 1.7L7 18"/>
-                <path d="M12 12l3 7.5a1 1 0 0 0 1.9.4L18 15"/>
-                <circle cx="12" cy="12" r="2" fill="#2dd4bf"/>
-            </svg>
-        </div>
-    </div>
-    <div class="kpi-container kpi-card kpi-card-co2">
-        <div class="kpi-content-left">
-            <div class="kpi-title kpi-label">CO₂ Evitado / Beneficio</div>
-            <div class="kpi-value">{fmt_num(emisiones_evitadas_tco2, 0)} <span>tCO₂</span></div>
-            <div class="kpi-subtext">
-                Beneficio: <span class="kpi-badge {badge_ben_class}">{beneficio_neto_fmt}</span><br/>
-                <span>🚗 ~<b>{fmt_num(autos_equivalentes, 0)}</b> autos evitados/año.</span>
+            <div class="kpi-icon kpi-icon-right" style="opacity: 0.9;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 12v9"/>
+                    <path d="m14 12 5-8.5a1 1 0 0 0-1.7-1L12 7"/>
+                    <path d="M12 12 3.5 14a1 1 0 0 0-1 1.7L7 18"/>
+                    <path d="M12 12l3 7.5a1 1 0 0 0 1.9.4L18 15"/>
+                    <circle cx="12" cy="12" r="2" fill="#2dd4bf"/>
+                </svg>
             </div>
         </div>
-        <div class="kpi-icon-right kpi-icon" style="opacity: 0.9;">🌱</div>
+        <div class="kpi-subtext">{sub_cobertura}</div>
+    </div>
+    <div class="kpi-container kpi-card-co2">
+        <div class="kpi-title kpi-label">CO₂ Evitado / Beneficio</div>
+        <div class="kpi-row">
+            <div class="kpi-value">{fmt_num(emisiones_evitadas_tco2, 0)} <span>tCO₂</span></div>
+            <div class="kpi-icon kpi-icon-right" style="opacity: 0.9;">🌱</div>
+        </div>
+        <div class="kpi-subtext">
+            Beneficio: <span class="kpi-badge {badge_ben_class}">{beneficio_neto_fmt}</span><br/>
+            <span>🚗 ~<b>{fmt_num(autos_equivalentes, 0)}</b> autos evitados/año.</span>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
