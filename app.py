@@ -13,7 +13,7 @@ import streamlit.components.v1 as components
 # Configuración general de la página
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Cuenca Golfo San Jorge - Transición Energética",
+    page_title="⚡ Cuenca del Golfo San Jorge: Transición Energética",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -895,7 +895,7 @@ with st.sidebar.expander("📐 Memoria de Cálculo y Ecuaciones", expanded=False
 
 st.sidebar.markdown("""
 <div class="sidebar-footer" style="white-space: nowrap; font-size: 13px; text-align: center; margin-top: 8px;">
-    <div>Cuenca Golfo San Jorge — Transición Energética</div>
+    <div>Cuenca del Golfo San Jorge — Transición Energética</div>
     <div>Fuentes: Secretaría de Energía / CAMMESA</div>
 </div>
 """, unsafe_allow_html=True)
@@ -948,7 +948,7 @@ else:
 # ---------------------------------------------------------
 # Encabezado Principal y Panel de Trazabilidad Histórica
 # ---------------------------------------------------------
-st.title("⚡ Cuenca Golfo San Jorge: Transición Energética")
+st.title("⚡ Cuenca del Golfo San Jorge: Transición Energética")
 
 if not yacimientos_sel:
     alcance_txt = "Todos los yacimientos (Escala Regional)"
