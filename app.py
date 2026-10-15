@@ -582,6 +582,43 @@ st.markdown("""
         visibility: hidden !important;
         pointer-events: none !important;
     }
+
+    /* 11. Leyenda técnica inferior del mapa Pydeck */
+    .map-legend-bar {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 0.85rem !important;
+        background: rgba(15, 23, 42, 0.75) !important;
+        border: 1px solid rgba(56, 189, 248, 0.22) !important;
+        border-radius: 8px !important;
+        padding: 0.65rem 0.95rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.6rem !important;
+        align-items: start !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    }
+    .map-legend-item {
+        font-size: 0.875rem !important;
+        line-height: 1.4 !important;
+        color: #cbd5e1 !important;
+    }
+    .map-legend-item strong {
+        color: #f8fafc !important;
+        font-weight: 600 !important;
+        display: inline !important;
+    }
+    @media (max-width: 1200px) {
+        .map-legend-bar {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 0.65rem !important;
+        }
+    }
+    @media (max-width: 640px) {
+        .map-legend-bar {
+            grid-template-columns: 1fr !important;
+            gap: 0.5rem !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1675,15 +1712,22 @@ with tab_mapa:
     )
 
     # Leyenda visual explicativa debajo del mapa
-    col_leg1, col_leg2, col_leg3, col_leg4 = st.columns(4)
-    with col_leg1:
-        st.markdown(f":material/wind_power: **Parques Eólicos**: Turbina cian con halo continuo ({radio_cobertura_km} km); resalta en azul petróleo al interactuar.")
-    with col_leg2:
-        st.markdown("🟠 **Yacimientos WOR Moderado (<90% / WOR < 9)**: Ámbar/naranja. Menor corte relativo de agua.")
-    with col_leg3:
-        st.markdown("🔵 **Yacimientos WOR Severo (≥90% / WOR ≥ 9)**: Azul eléctrico. Alto BSW y electrointensividad.")
-    with col_leg4:
-        st.markdown("📏 **Altura Columnas 3D**: Volumen consolidado de fluido extraído ($m^3$).")
+    st.markdown("""
+    <div class="map-legend-bar">
+        <div class="map-legend-item">
+            <strong>🌬️ Parques Eólicos:</strong> Turbina cian con radio de cobertura (km). Resaltado activo al seleccionar.
+        </div>
+        <div class="map-legend-item">
+            <strong>🟠 Yacimientos WOR Moderado (&lt;90% / WOR &lt; 9):</strong> Marcador ámbar. Menor corte relativo de agua.
+        </div>
+        <div class="map-legend-item">
+            <strong>🔵 Yacimientos WOR Severo (≥90% / WOR ≥ 9):</strong> Marcador azul. Alto corte de agua y electrointensividad.
+        </div>
+        <div class="map-legend-item">
+            <strong>📏 Altura Columnas 3D:</strong> Volumen total de fluido extraído (m³).
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with tab_graficos:
     # Fila de Títulos, Controles y Gráficos Nivelados
